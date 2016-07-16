@@ -16,6 +16,7 @@
 		F3C8E9591D3AA4760052356A /* SpriteKitSimpleGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C8E9581D3AA4760052356A /* SpriteKitSimpleGameTests.swift */; };
 		F3C8E9641D3AA4760052356A /* SpriteKitSimpleGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C8E9631D3AA4760052356A /* SpriteKitSimpleGameUITests.swift */; };
 		F3C8E9721D3AA7890052356A /* SpriteKitSimpleGameResources in Resources */ = {isa = PBXBuildFile; fileRef = F3C8E9711D3AA7890052356A /* SpriteKitSimpleGameResources */; };
+		F3C8E9741D3ABF0E0052356A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C8E9731D3ABF0E0052356A /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		F3C8E9631D3AA4760052356A /* SpriteKitSimpleGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitSimpleGameUITests.swift; sourceTree = "<group>"; };
 		F3C8E9651D3AA4760052356A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3C8E9711D3AA7890052356A /* SpriteKitSimpleGameResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpriteKitSimpleGameResources; sourceTree = "<group>"; };
+		F3C8E9731D3ABF0E0052356A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				F3C8E93F1D3AA4750052356A /* AppDelegate.swift */,
 				F3C8E9431D3AA4750052356A /* GameScene.swift */,
+				F3C8E9731D3ABF0E0052356A /* GameOverScene.swift */,
 				F3C8E9451D3AA4750052356A /* GameViewController.swift */,
 				F3C8E9471D3AA4750052356A /* Main.storyboard */,
 				F3C8E94A1D3AA4750052356A /* Assets.xcassets */,
@@ -268,6 +271,7 @@
 			files = (
 				F3C8E9441D3AA4750052356A /* GameScene.swift in Sources */,
 				F3C8E9461D3AA4750052356A /* GameViewController.swift in Sources */,
+				F3C8E9741D3ABF0E0052356A /* GameOverScene.swift in Sources */,
 				F3C8E9401D3AA4750052356A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
