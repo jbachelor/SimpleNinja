@@ -8,6 +8,13 @@
 
 import SpriteKit
 
+struct PhysicsCategory {
+    static let None: UInt32 = 0
+    static let All: UInt32 = UInt32.max
+    static let Monster: UInt32 = 0b1        // 1
+    static let Projectile: UInt32 = 0b10    // 2
+}
+
 // MARK: Basic vector math routines via operator overloading
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
@@ -46,7 +53,7 @@ extension CGPoint {
 
 
 // MARK: Main class
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // 1
     let player = SKSpriteNode(imageNamed: "SpriteKitSimpleGameResources/sprites.atlas/player")
@@ -60,6 +67,9 @@ class GameScene: SKScene {
         player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
         // 4
         addChild(player)
+        
+        physicsWorld.gravity = CGVectorMake(0, 0)
+        physicsWorld.contactDelegate = self
         
         runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock(addMonster),
@@ -79,6 +89,13 @@ class GameScene: SKScene {
         // 2 - set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "SpriteKitSimpleGameResources/sprites.atlas/projectile")
         projectile.position = player.position
+        
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.dynamic = true
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
         
         // 3 - determine offset of location to projectile
         let offset = touchLocation - projectile.position
@@ -118,6 +135,11 @@ class GameScene: SKScene {
     func addMonster() {
         // create sprite
         let monster = SKSpriteNode(imageNamed: "SpriteKitSimpleGameResources/sprites.atlas/monster")
+        monster.physicsBody = SKPhysicsBody(rectangleOfSize: monster.size)
+        monster.physicsBody?.dynamic = true
+        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
+        monster.physicsBody?.collisionBitMask = PhysicsCategory.None
         
         // determine where to spawn the monster along the y axis
         let actualY = random(min: monster.size.height/2, max: size.height - monster.size.height/2)
@@ -138,4 +160,45 @@ class GameScene: SKScene {
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
+    
+    func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {
+        print("Hit!")
+        projectile.removeFromParent()
+        monster.removeFromParent()
+    }
+    
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        // 1 
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        // 2
+        if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
+            projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
