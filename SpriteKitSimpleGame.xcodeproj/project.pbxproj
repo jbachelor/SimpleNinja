@@ -15,6 +15,7 @@
 		F3C8E94E1D3AA4750052356A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C8E94C1D3AA4750052356A /* LaunchScreen.storyboard */; };
 		F3C8E9591D3AA4760052356A /* SpriteKitSimpleGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C8E9581D3AA4760052356A /* SpriteKitSimpleGameTests.swift */; };
 		F3C8E9641D3AA4760052356A /* SpriteKitSimpleGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C8E9631D3AA4760052356A /* SpriteKitSimpleGameUITests.swift */; };
+		F3C8E9721D3AA7890052356A /* SpriteKitSimpleGameResources in Resources */ = {isa = PBXBuildFile; fileRef = F3C8E9711D3AA7890052356A /* SpriteKitSimpleGameResources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		F3C8E95F1D3AA4760052356A /* SpriteKitSimpleGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitSimpleGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C8E9631D3AA4760052356A /* SpriteKitSimpleGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitSimpleGameUITests.swift; sourceTree = "<group>"; };
 		F3C8E9651D3AA4760052356A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3C8E9711D3AA7890052356A /* SpriteKitSimpleGameResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpriteKitSimpleGameResources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		F3C8E9331D3AA4750052356A = {
 			isa = PBXGroup;
 			children = (
+				F3C8E9711D3AA7890052356A /* SpriteKitSimpleGameResources */,
 				F3C8E93E1D3AA4750052356A /* SpriteKitSimpleGame */,
 				F3C8E9571D3AA4760052356A /* SpriteKitSimpleGameTests */,
 				F3C8E9621D3AA4760052356A /* SpriteKitSimpleGameUITests */,
@@ -237,6 +240,7 @@
 			files = (
 				F3C8E94E1D3AA4750052356A /* LaunchScreen.storyboard in Resources */,
 				F3C8E94B1D3AA4750052356A /* Assets.xcassets in Resources */,
+				F3C8E9721D3AA7890052356A /* SpriteKitSimpleGameResources in Resources */,
 				F3C8E9491D3AA4750052356A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
