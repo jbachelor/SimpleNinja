@@ -8,11 +8,49 @@
 
 import SpriteKit
 
+// MARK: Basic vector math routines via operator overloading
+
+func + (left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+
+func - (left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+
+func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x * scalar, y: point.y * scalar)
+}
+
+func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x / scalar, y: point.y / scalar)
+}
+
+// MARK: Processor specific code?
+#if !(arch(x86_64) || arch(arm64))
+    func sqrt(a: CGFloat) -> CGFloat {
+        return CGFloat(sqrtf(Float(a)))
+    }
+#endif
+
+// MARK: CGPoint Extension
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt(x*x + y*y)
+    }
+    
+    func normalized() -> CGPoint {
+        return self/length()
+    }
+}
+
+
+// MARK: Main class
 class GameScene: SKScene {
     
     // 1
     let player = SKSpriteNode(imageNamed: "SpriteKitSimpleGameResources/sprites.atlas/player")
-    
+
     
     override func didMoveToView(view: SKView) {
         
@@ -27,6 +65,43 @@ class GameScene: SKScene {
             SKAction.runBlock(addMonster),
             SKAction.waitForDuration(1.0)
             ])))
+    }
+    
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        // 1 - choose one of the touches to work with
+        guard let touch = touches.first else {
+            return
+        }
+        let touchLocation = touch.locationInNode(self)
+        
+        // 2 - set up initial location of projectile
+        let projectile = SKSpriteNode(imageNamed: "SpriteKitSimpleGameResources/sprites.atlas/projectile")
+        projectile.position = player.position
+        
+        // 3 - determine offset of location to projectile
+        let offset = touchLocation - projectile.position
+        
+        // 4 - Bail out if you are shooting down or backwards
+        if (offset.x < 0) { return }
+        
+        // 5 - Ok to add now... You've double-checked position
+        addChild(projectile)
+        
+        // 6 - Get the direction of where to shoot
+        let direction = offset.normalized()
+        
+        // 7 - Make it shoot far enough to be guaranteed off screen
+        let shootAmount = direction * 1000
+        
+        // 8 - Add the shoot amount to the current position
+        let realDest = shootAmount + projectile.position
+        
+        // 9 - Create the actions
+        let actionMove = SKAction.moveTo(realDest, duration: 2.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
     
